@@ -1,0 +1,162 @@
+script Two game controller
+function main ()      
+	basic → show string("Select A or B", 100)      
+	input → on button pressed(A) do       
+Invaders Game
+	var Delay := 75      
+	game → set score(0)      
+	var x := 2      
+	var y := 4      
+	game → start countdown(20000)      
+	led → plot(x, y)      
+	var alienX := math → random(5)      
+	var alienY := math → random(2)      
+	led → plot(alienX, alienY)      
+	while game → current time > 0 do       
+		var valueLeft := pins → digital read pin(P8)            
+		if valueLeft > 0 then       
+			led → unplot(x, y)      
+			x := x - 1      
+			if x < 0 then       
+				x := 0      
+			else add code here end if       
+			led → plot(x, y)      
+			basic → pause(Delay + 25)      
+		else add code here end if       
+		var valueRight := pins → digital read pin(P16)  
+		if valueRight > 0 then       
+			led → unplot(x, y)      
+			x := x + 1      
+			if x > 4 then       
+				x := 4      
+			else add code here end if       
+			led → plot(x, y)      
+			basic → pause(Delay + 25)      
+		else add code here end if       
+		var valueFire := pins → digital read pin(P15)    
+		if valueFire > 0 then       
+			for 0 ≤ i < 4 do       
+				led → plot(x, y - ( i + 1 ))      
+				if alienY = i  and alienX = x then       
+					game → set score(game → score + 1)    
+					basic → pause(50)       
+					music → play tone(440, 100)         
+				else add code here end if       
+				basic → pause(Delay)      
+				led → unplot(x, y - ( i + 1 ))   
+			end for
+			alienX := math → random(5)      
+			alienY := math → random(2)      
+			led → plot(alienX, alienY)     
+			led → plot(x, y)      
+		else add code here end if       
+end while       
+	basic → forever do       
+		if game → current time = 0 then       
+			var valueUp := pins → digital read pin(P12)      
+			if valueUp > 0 then       
+				control → reset    
+			else add code here end if       
+		else add code here end if       
+	end       
+end       
+
+input → on button pressed(B) do       
+Snake Game
+	var Delay := 200      
+	game → set score(0)      
+Plot snake
+	var x := 2      
+	var y := 2      
+Snake's Tail
+	var snakeTail := 1      
+	var Oy := 2      
+food x and y Co ordinates
+	var fx := math → random(5)     
+	var fy := math → random(5)     
+	game → start countdown(30000)      
+	led → plot(snakeTail, Oy)      
+	led → plot(x, y)      
+	led → plot(fx, fy)      
+Start of programme
+	while game → current time > 0 do       
+	var valueDown := pins → digital read pin(P2)      
+	var valueRight := pins → digital read pin(P16)      
+	var valueUp := pins → digital read pin(P12)      
+	var valueLeft := pins → digital read pin(P8)      
+		if valueRight > 0 then       
+			led → unplot(snakeTail, Oy)      
+			led → unplot(x, y)      
+			snakeTail := x      
+			Oy := y      
+			x := x + 1      
+			if x > 4 then       
+				x := 0   
+			else add code here end if       
+			led → plot(snakeTail, Oy)      
+			led → plot(x, y)      
+			basic → pause(Delay)  
+		else add code here end if       
+		if valueLeft > 0 then       
+			led → unplot(snakeTail, Oy)      
+			led → unplot(x, y)      
+			snakeTail := x      
+			Oy := y      
+			x := x - 1      
+			if x < 0 then       
+				x := 4      
+			else add code here end if       
+			led → plot(snakeTail, Oy)      
+			led → plot(x, y)      
+			basic → pause(Delay)      
+		else add code here end if       
+		if valueDown > 0 then       
+			led → unplot(snakeTail, Oy)      
+			led → unplot(x, y)      
+			snakeTail := x      
+			Oy := y      
+			y := y + 1      
+			if y > 4 then       
+				y := 0  
+			else add code here end if       
+			led → plot(snakeTail, Oy)      
+			led → plot(x, y)      
+			basic → pause(Delay)      
+		else add code here end if       
+		if valueUp > 0 then       
+			led → unplot(snakeTail, Oy)      
+			led → unplot(x, y)      
+			snakeTail := x      
+			Oy := y      
+			y := y - 1      
+			if y < 0 then       
+				y := 4 
+			else add code here end if       
+			led → plot(snakeTail, Oy)      
+			led → plot(x, y)      
+			basic → pause(Delay)      
+		else add code here end if       
+		if x = fx and y = fy then       
+			game → set score(game → score + 1)      
+			music → play tone(440, 100)      
+			fx := math → random(5)      
+			fy := math → random(5)      
+			led → plot(fx, fy)      
+		else       
+			led → plot(fx, fy)      
+		end if       
+		if game → score > 10 and game → score < 20 then       
+			Delay := 100      
+		else if game → score ≥ 20 then       
+			Delay := 50      
+		else add code here end if       
+	end while       
+Waits for the player to press FIRE to reset the game
+	basic → forever do       
+		var valueReset := pins → digital read pin(P15)      
+		if valueReset > 0 then       
+			control → reset      
+		else add code here end if 
+	end       
+end       
+end function 
