@@ -13,3 +13,5 @@ P11 - Button B (Select game 2)
 P12 - Up (Reset for game 2)
 P15 - Select on thumb sick (Fire for game 1)
 P16 - Right
+
+The Red/Green LED's and the analog joystick is not currently used. There are not enough analog inputs to use the joystick AND the buzzer.
