@@ -1,12 +1,13 @@
 script Two game controller (functions)
    
 function main ()      
-	◳ buzzOff := false      
-	basic → show string("A or B or AB", 75)      
+◳ buzzOff := false      
+basic → show string("A or B or AB", 75)      
 AB is used to turn the buzzer off
-	input → on button pressed(A+B) do       
-	◳ buzzOff := true      
-end       
+input → on button pressed(A+B) do       
+◳ buzzOff := true      
+end
+       
 input → on button pressed(A) do       
 // Invaders Game
 game → set score(0)      
